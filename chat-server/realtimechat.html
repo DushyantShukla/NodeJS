@@ -1,0 +1,190 @@
+<!-- realtimechat.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/style.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Reat Time Chat</title>
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	// alert("adsd");
+    	//var socket = io.connect('http://4988d5d1.ngrok.io/');
+    	var socket = io.connect('http://192.168.0.13:3000');
+    	socket.on('connect', function(data) {
+    		nickname = prompt('What is your nickname?');
+    		socket.emit('join', nickname);
+    	});
+    	socket.on('messages', function(data) {
+    		// console.log(data.hello);
+    		$('#messages').append($('<div style="background-color: #E4E4E1;">').text(data));
+    	});
+
+    	$("#message-input").keypress(function(e) {
+    		if (e.which == 13) {
+    			// $("#send-button").click(function(e) {
+    		// alert('sdsd');
+    		var message = $("input:first").val();
+    		console.log('message: ' + message);
+    		socket.emit('messages', message);
+    		$("input:first").val('');
+    		return false;
+    	// });
+    		}
+    	});
+    	// alert('ssdfsdfsfdsfdsd');
+    	$("#send-button").click(function(e) {
+    		// alert('sdsd');
+    		var message = $("input:first").val();
+    		console.log('message: ' + message);
+    		socket.emit('messages', message);
+    		$("input:first").val('');
+    		return false;
+    	});
+
+    });
+    </script>
+
+<style type="text/css">
+    	@import 'https://fonts.googleapis.com/css?family=Jura:600';
+html,
+body {
+    font-family: 'Jura', sans-serif;
+    background-color: grey;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+#content-wrapper{
+	 height: 100vh;
+    /* min-height: 100vh; */
+	 /* width: 700px; */
+	 border: 2px solid white;
+	 /* border-top-left-radius: 20px;
+	 border-top-right-radius: 20px; */
+	 /* border-bottom-left-radius: 20px; */
+	 /* margin: auto; */
+	 display: block;
+}
+
+#participants{
+	height: 63px;
+	width: 100%;
+	border-bottom: 2px solid white;
+	display: block;
+}
+
+#chat-box{
+	height: calc(100% - 63px);
+	width: 100%;
+}
+
+#messages{
+	height: calc(100% - 29px);   
+	width: 100%;
+	border-bottom: 2px solid white;
+	overflow-y: auto;
+	/* display:block; */
+}
+
+#chat-input{
+	height: 29px;
+	width: 100%;
+	/* border-bottom-left-radius: 20px; */
+	/* border-bottom-right-radius: 20px; */
+}
+
+#text-input{
+	width: 85%;
+	height: 100%;
+	/* border-bottom-left-radius: 20px; */
+	float: left;
+	background-color: grey;
+}
+
+#chat-form input{
+ width: 100%;
+ font-family: 'Jura', sans-serif;
+ font-size: 13px;
+ /* height: 100%; */
+ height: 29px;
+ border: 0;
+    background: #eee;
+}
+
+#send-button{
+	height: 100%;
+	width: 15%;
+	float: right;
+	/* border-bottom-right-radius: 20px; */
+	background-color: #283428;
+	text-align: center;
+	color: white;
+	/* font-size: 0.8rem;
+	padding -top: 2%;*/
+	cursor: pointer;
+}
+
+#send-logo{
+	color: white;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+#send-button:active {
+    background-color: white;
+    cursor: pointer;
+}
+
+#send-button i:active{
+    color: #283428;
+	vertical-align: middle;
+}
+</style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="offset-sm-4  col-sm-4 offset-md-3 col-sm-6">
+                <div id="content-wrapper">
+                    <div id="participants"></div>
+                    <div id="chat-box">
+                        <div id="messages">
+                        </div>
+                        <div id="chat-input">
+                            <!-- <form action="" id="chat-form">
+                        <input type="text" name="message-input" size=73/>
+                        <input type="submit" value="send" />
+                    </form> -->
+                            <div id="text-input">
+                                <form action="" id="chat-form" autocomplete="off">
+                                    <input type="text" id="message-input"/>
+                                </form>
+                            </div>
+                            <div id="send-button">
+                                <i class="fa fa-paper-plane" id="send-logo" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</body>
+
+</html>
