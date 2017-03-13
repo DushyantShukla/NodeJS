@@ -29,7 +29,7 @@ io.on('connection', function(client) {
 		console.log(data);
 		var nickname = client.nickname;
 		client.broadcast.emit('messages', nickname+': '+data);
-		client.emit('messages', nickname+': '+data);
+		// client.emit('messages', nickname+': '+data);
 		storeMessage(nickname, data);
 	});
 });

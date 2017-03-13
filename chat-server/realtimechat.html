@@ -19,14 +19,17 @@
     $(document).ready(function() {
     	// alert("adsd");
     	//var socket = io.connect('http://4988d5d1.ngrok.io/');
-    	var socket = io.connect('http://192.168.0.13:3000');
+    	// var socket = io.connect('http://192.168.0.13:3000');
+    	var socket = io.connect('http://localhost:3000');
     	socket.on('connect', function(data) {
     		nickname = prompt('What is your nickname?');
     		socket.emit('join', nickname);
     	});
     	socket.on('messages', function(data) {
     		// console.log(data.hello);
-    		$('#messages').append($('<div style="background-color: #E4E4E1;">').text(data));
+    		$('#messages').append($('<span style="border-radius:1em; border:solid white 1px;padding:5px; background-color:white;float:right;margin-top:2px;">').text(data));
+    		$('#messages').append($('<br>'));
+    		$('#messages').append($('<br>'));
     	});
 
     	$("#message-input").keypress(function(e) {
@@ -36,6 +39,8 @@
     		var message = $("input:first").val();
     		console.log('message: ' + message);
     		socket.emit('messages', message);
+    		$('#messages').append($('<span style="border-radius:1em; border:solid white 1px;padding:5px; background-color:white;display:inline-block;margin-top:2px;">').text(message));
+    		$('#messages').append($('<br>'));
     		$("input:first").val('');
     		return false;
     	// });
