@@ -1,0 +1,6 @@
+{
+    "hostConfig": {
+        "host1": "http://localhost:7070",
+        "host2": "development host2"
+    }
+}

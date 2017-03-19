@@ -1,0 +1,6 @@
+{
+    "hostConfig": {
+        "host1": "production host1",
+        "host2": "production host2"
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "http-proxy-server",
+  "version": "1.0.0",
+  "description": "This is a NodeJS http proxy server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "start_dev": "set NODE_ENV=development&&node app.js",
+    "start_stage": "set NODE_ENV=staging&&node app.js",
+    "start_prod": "set NODE_ENV=production&&node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DushyantShukla/NodeJS.git"
+  },
+  "keywords": [
+    "http-proxy-server"
+  ],
+  "author": "Dushyant Shukla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DushyantShukla/NodeJS/issues"
+  },
+  "homepage": "https://github.com/DushyantShukla/NodeJS#readme",
+  "dependencies": {
+    "config": "^1.25.1",
+    "express": "^4.15.2",
+    "http-proxy": "^1.16.2",
+    "url": "^0.11.0"
+  }
+}

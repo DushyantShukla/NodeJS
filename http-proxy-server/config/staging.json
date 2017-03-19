@@ -1,0 +1,6 @@
+{
+    "hostConfig": {
+        "host1": "staging host1",
+        "host2": "staging host2"
+    }
+}
